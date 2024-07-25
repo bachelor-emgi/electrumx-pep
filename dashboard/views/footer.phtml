@@ -1,16 +1,16 @@
 <footer>
-<div class="pull-right">
-<a href="https://github.com/Mirobit/electrumx-dashboard"> ElectrumX Dashboard v1.0.0</a> - © 2020
-</div>
-<div class="clearfix"></div>
+	<div class="pull-right">
+		<a href="https://github.com/PepeEnthusiast/electrumx-dashboard-pepecoin">Pepecoin ElectrumX Dashboard v1.0.0</a> - © 2024
+	</div>
+	<div class="clearfix"></div>
 </footer>
 <script type="text/javascript">
 	<?php
-	if($this->section === "main"){
+	if ($this->section === "main") {
 		$section = "";
-	}else{
-		$section = "?p=".$this->section;
+	} else {
+		$section = "?p=" . $this->section;
 	}
 	?>
-    window.history.pushState("", "", "<?= $section ?>");
+	window.history.pushState("", "", "<?= $section ?>");
 </script>

@@ -42,11 +42,20 @@ RUN chmod +x /entrypoint.sh
 RUN mkdir -p /root/.pepecoin
 COPY pepecoin.conf /root/.pepecoin/pepecoin.conf
 
-# Remove default Apache files
-RUN rm -rf /var/www/html/*
+# Copy dashboard directory into the working directory
+COPY dashboard /data/dashboard
 
-# Copy the contents of the dashboard directory to the Apache web server root directory
-COPY dashboard/* /var/www/html/
+RUN apt-get install -y apache2 php php-cli libapache2-mod-php \
+    && a2enmod rewrite
+
+# Configure Apache to serve the dashboard directory
+RUN echo '<VirtualHost *:80>\n\
+    DocumentRoot /data/dashboard\n\
+    <Directory /data/dashboard>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
 # Set environment variables
 ENV HOME /data
@@ -60,6 +69,7 @@ ENV SSL_CERTFILE ${DB_DIRECTORY}/electrumx-pepecoin.crt
 ENV SSL_KEYFILE ${DB_DIRECTORY}/electrumx-pepecoin.key
 ENV HOST ""
 ENV REPORT_SERVICES=tcp://electrum.pepelum.com:50001,ssl://electrum.pepelum.com:50002,wss://electrum.pepelum.com:50004
+ENV DONATION_ADDRESS=PgQN3BqErwVeCpbmAx7gSSJijBdjGL4F2K
 
 # Set working directory for data
 WORKDIR /data

@@ -14,7 +14,7 @@
         "localhost": only localhost (IPv4/v6) can access EXD)
         "84.12.32.297": localhost and the specific IP (e.g. 84.12.32.297) can access EXD
       */
-      const ACCESS_IP = "10.0.0.0/8";
+      const ACCESS_IP = "";
 
       /*
       IP of the ElextrumX RPC Server, usually localhost.
