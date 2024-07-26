@@ -10,7 +10,20 @@ docker run -d \
     -v /home/pi/certs:/etc/ssl/private \
     emgi2/pepelum-electrum
 ```
-
+Certbot
+```
+docker run -d \
+  --name certbot \
+  --restart always \
+  -e CLOUDFLARE_API_TOKEN=token \
+  -e EMAIL=email \
+  -e DOMAIN=electrum.pepelum.site \
+  -v /etc/letsencrypt:/etc/letsencrypt \
+  -v /var/lib/letsencrypt:/var/lib/letsencrypt \
+  -v /var/log/letsencrypt:/var/log/letsencrypt \
+  -v /home/pi/certs:/certs \
+  emgi2/certbot
+```
 
 # docker-electrumx-pepecoin
 
