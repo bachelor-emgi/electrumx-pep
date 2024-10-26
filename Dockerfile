@@ -52,10 +52,19 @@ RUN apt-get install -y apache2 php php-cli libapache2-mod-php \
 RUN echo '<VirtualHost *:80>\n\
     DocumentRoot /data/dashboard\n\
     <Directory /data/dashboard>\n\
-        AllowOverride All\n\
-        Require all granted\n\
+    AllowOverride All\n\
+    Require all granted\n\
     </Directory>\n\
-</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+    </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+RUN apt-get update && \
+    apt-get install -y openvpn iproute2 
+
+COPY DE-ovpn-tcp.conf /etc/openvpn/DE-ovpn-tcp.conf
+COPY auth.txt /etc/openvpn/auth.txt
+
+# Set permissions for security (optional)
+RUN chmod 600 /etc/openvpn/auth.txt
 
 # Set environment variables
 ENV HOME /data

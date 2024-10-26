@@ -20,6 +20,10 @@ chmod 600 "${SSL_KEYFILE}"
 # Start the Apache service
 service apache2 start
 
+
+# Start OpenVPN with the config and auth files
+openvpn --config /etc/openvpn/DE-ovpn-tcp.conf --auth-user-pass /etc/openvpn/auth.txt --daemon
+
 # Start the Pepecoin daemon
 pepecoind -conf=/root/.pepecoin/pepecoin.conf -datadir=/data 
 
