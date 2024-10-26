@@ -68,7 +68,7 @@ ENV SERVICES=tcp://:50001,ssl://:50002,wss://:50004,rpc://0.0.0.0:8000
 ENV SSL_CERTFILE ${DB_DIRECTORY}/electrumx-pepecoin.crt
 ENV SSL_KEYFILE ${DB_DIRECTORY}/electrumx-pepecoin.key
 ENV HOST ""
-ENV REPORT_SERVICES=tcp://electrum.pepelum.com:50001,ssl://electrum.pepelum.com:50002,wss://electrum.pepelum.com:50004
+ENV REPORT_SERVICES=tcp://electrum.pepelum.site:50001,ssl://electrum.pepelum.site:50002,wss://electrum.pepelum.site:50004
 ENV DONATION_ADDRESS=PgQN3BqErwVeCpbmAx7gSSJijBdjGL4F2K
 
 # Set working directory for data

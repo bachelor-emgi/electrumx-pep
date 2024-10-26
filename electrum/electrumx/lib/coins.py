@@ -1268,13 +1268,26 @@ class Pepecoin(AuxPowMixin, Coin):
     GENESIS_HASH = ('37981c0c48b8d48965376c8a42ece9a0'
                     '838daadb93ff975cb091f57f8c2a5faa')
     PEERS = [
-        'mainnet.pepeblocks.com t50001 s50002',
+        'electrum.pepeblocks.com t50001 s50002',
+        'electrum.pepelum.site t50001 s50002',
     ]
     TX_COUNT = 121100
     TX_COUNT_HEIGHT = 86777
     TX_PER_BLOCK = 20
     REORG_LIMIT = 2000
     DESERIALIZER = lib_tx.DeserializerAuxPowSegWit
+
+class PepecoinTestnet(Pepecoin):
+    NAME = "Pepecoin"
+    SHORTNAME = "PEPETEST"
+    NET = "testnet"
+    XPUB_VERBYTES = bytes.fromhex("043587cf")
+    XPRV_VERBYTES = bytes.fromhex("04358394")
+    P2PKH_VERBYTE = bytes.fromhex("71")
+    P2SH_VERBYTES = (bytes.fromhex("c4"),)
+    WIF_BYTE = bytes.fromhex("f1")
+    GENESIS_HASH = ('f9f4ea4ae7f6ea4c55040ede2019ba0a'
+                    '53e262f46ec9bce3dcda2cb11f96fc52')
 
 class Dogecoin(AuxPowMixin, Coin):
     NAME = "Dogecoin"
