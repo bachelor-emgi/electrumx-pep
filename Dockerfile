@@ -57,15 +57,6 @@ RUN echo '<VirtualHost *:80>\n\
     </Directory>\n\
     </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
-RUN apt-get update && \
-    apt-get install -y openvpn iproute2 
-
-COPY DE-ovpn-tcp.conf /etc/openvpn/DE-ovpn-tcp.conf
-COPY auth.txt /etc/openvpn/auth.txt
-
-# Set permissions for security (optional)
-RUN chmod 600 /etc/openvpn/auth.txt
-
 # Set environment variables
 ENV HOME /data
 ENV ALLOW_ROOT 1

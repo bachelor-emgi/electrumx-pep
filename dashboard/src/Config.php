@@ -33,7 +33,7 @@
       // since the last page load. Up to 100 ips are checked per request. Peers/sessions that are no longer
       // connected, are removed from the cache.
       const PEERS_GEO = TRUE;
-      const SESSIONS_GEO = FALSE;
+      const SESSIONS_GEO = TRUE;
       // Maximum of seconds to wait for responses from ip-api.com
       const GEO_TIMEOUT = 2;
   }
