@@ -1,14 +1,16 @@
 ```
 docker run -d \
-    --name pepelum-electrum \
-    --restart always \
-    -p 8002:80 \
-    -p 50001:50001 \
-    -p 50002:50002 \
-    -p 50004:50004 \
-    -v pepelum_data:/data \
-    -v /home/pi/certs:/etc/ssl/private \
-    emgi2/pepelum-electrum
+  -p 50001:50001/tcp \
+  -p 50002:50002/tcp \
+  -p 50004:50004/tcp \
+  -p 8002:80/tcp \
+  -v pepelum_data:/data \
+  -v /home/pi/certs:/etc/ssl/private \
+  --cap-add=NET_ADMIN \
+  --device=/dev/net/tun \
+  --name electrum-pepelum \
+  --restart always \
+  emgi2/pepelum-electrum
 ```
 Certbot
 ```
