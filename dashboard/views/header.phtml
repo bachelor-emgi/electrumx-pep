@@ -39,6 +39,10 @@
     <i class="fa fa-user-o"></i>
     <span>Sessions</span>
   </a>
+  <a href="?p=rules" class="<?= ($this->section == "rules") ? 'active' : ''; ?>">
+    <i class="fa fa-shield"></i>
+    <span>Rules</span>
+  </a>
   <a href="?p=peers" class="<?= ($this->section == "peers") ? 'active' : ''; ?>">
     <i class="fa fa-server"></i>
     <span>Peers</span>
@@ -54,37 +58,52 @@
     <div class="main_container">
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
-          <div class="navbar nav_title" style="border-bottom: 1px solid #416182;">
+          <div class="navbar nav_title" style="border-bottom: 1px solid transparent;">
             <a href="index.php" class="site_title"><img src="../assets/images/pepecoinlogo.svg"
                 alt="Your Image Description" style="width: 24px; height: 24px;"> <span>ElectrumX Dash</span></a>
           </div>
-          <hr>
           <div class="clearfix"></div>
 
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
               <ul class="nav side-menu">
-                <a href="?p=main" <?php if ($this->section == "main")
-                  echo 'class="active"'; ?>><i class="fa fa-home"></i>
-                  Main </a>
-                <a href="?p=sessions" <?php if ($this->section == "sessions")
-                  echo 'class="active"'; ?>><i
-                    class="fa fa-user-o"></i> Sessions </a>
-                <ul class="nav child_menu" style="display: block;">
-                  <li <?php if ($this->section == "rules")
-                    echo 'class="current-page"'; ?>><a href="?p=rules">Rules</a>
-                  </li>
-                </ul>
-                <a href="?p=peers" <?php if ($this->section == "peers")
-                  echo 'class="active"'; ?>><i
-                    class="fa fa-server"></i> Peers </a>
-                <a href="?p=about" <?php if ($this->section == "about")
-                  echo 'class="active"'; ?>><i
-                    class="fa fa-info"></i> About </a>
+                <!-- First item with rounded top corners -->
+                <li class="menu-item rounded-top">
+                  <a href="?p=main" <?php if ($this->section == "main")
+                    echo 'class="active"'; ?>>
+                    <i class="fa fa-home"></i> Main
+                  </a>
+                </li>
+                <!-- Other items without margin or rounded corners -->
+                <li class="menu-item">
+                  <a href="?p=sessions" <?php if ($this->section == "sessions")
+                    echo 'class="active"'; ?>>
+                    <i class="fa fa-user-o"></i> Sessions
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="?p=rules" <?php if ($this->section == "rules")
+                    echo 'class="active"'; ?>>
+                    <i class="fa fa-shield"></i> Rules
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="?p=peers" <?php if ($this->section == "peers")
+                    echo 'class="active"'; ?>>
+                    <i class="fa fa-server"></i> Peers
+                  </a>
+                </li>
+                <li class="menu-item rounded-bottom">
+                  <a href="?p=about" <?php if ($this->section == "about")
+                    echo 'class="active"'; ?>>
+                    <i class="fa fa-info"></i> About
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
+
           <!-- /sidebar menu -->
         </div>
 

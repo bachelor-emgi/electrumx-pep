@@ -1,233 +1,271 @@
 <!-- top tiles -->
-        <div class="panel panel-default">  
-            <div class="panel-body">          
-				<div class="row tile_count">
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-user"></i> Sessions</span>
-					  <div class="count"><?= $content['node']->sessionsC ?></div>
-					  <span class="count_bottom"><i class="fa fa-plug"></i><?= $content['node']->subscriberC ?> Subscribers</span>
-					</div>
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-user fa-eye"></i> Requests</span>
-					  <div class="count"><?= number_format($content['node']->requestsC) ?></div>
-					  <span class="count_bottom"><i class="fa fa-envelope-o"></i><?= $content['node']->txSentC ?> TXs send</span>
-					</div>                    
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cloud-upload"></i> Upload Traffic <?= ($content['totaltrafficout'] >= 1000) ? "(GB)" : "(MB)"?></span>
-					  <div class="count"><?= ($content['totaltrafficout'] >= 1000) ? round($content['totaltrafficout']/1000,1) : round($content['totaltrafficout'], 1)?></div>					  
-					</div>
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-cloud-upload"></i> Download Traffic <?= ($content['totaltrafficin'] >= 1000) ? "(GB)" : "(MB)"?></span>
-					  <div class="count"><?= ($content['totaltrafficin'] >= 1000) ? round($content['totaltrafficin']/1000,1) : round($content['totaltrafficin'], 1)?></div>
-					</div>
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cube"></i> Block Height</span>
-					  <div class="count"><?= number_format($content['node']->blockHeight) ?></div>
-					 <span class="count_bottom"><?= ($content['node']->synced) ? ' <span >synced</span>' : $content['node']->blocksBehind." behind"?></span>
-					</div>                    
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-server"></i> Peers</span>
-					  <div class="count"><?= number_format($content['node']->peersC) ?></div>
-					  <span class="count_bottom"><i class="fa fa-clock-o"></i><?= $content['node']->uptime ?> online</span>
-					</div>					
-				</div>
-	        </div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row tile_count">
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Sessions</span>
+        <div class="count"><?= $content['node']->sessionsC ?></div>
+        <span class="count_bottom"><i class="fa fa-plug"></i><?= $content['node']->subscriberC ?> Subscribers</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user fa-eye"></i> Requests</span>
+        <div class="count"><?= number_format($content['node']->requestsC) ?></div>
+        <span class="count_bottom"><i class="fa fa-envelope-o"></i><?= $content['node']->txSentC ?> TXs send</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-cloud-upload"></i> Upload Traffic
+          <?= ($content['totaltrafficout'] >= 1000) ? "(GB)" : "(MB)" ?></span>
+        <div class="count">
+          <?= ($content['totaltrafficout'] >= 1000) ? round($content['totaltrafficout'] / 1000, 1) : round($content['totaltrafficout'], 1) ?>
         </div>
-		<!-- /top tiles -->
-		<!-- Message/Error -->
-		<div class="clearfix"></div>
-        <div class="row">
-            <div class="col-md-3 col-sm-3 col-xs-12">
-                <?php if(!empty($error)){ ?> <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <?= $error ?> </div><?php }
-                 if(!empty($message)){ ?> <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <?= $message ?> </div><?php } ?>
-            </div>  
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-cloud-upload"></i> Download Traffic
+          <?= ($content['totaltrafficin'] >= 1000) ? "(GB)" : "(MB)" ?></span>
+        <div class="count">
+          <?= ($content['totaltrafficin'] >= 1000) ? round($content['totaltrafficin'] / 1000, 1) : round($content['totaltrafficin'], 1) ?>
         </div>
-        <!-- Content -->
-        <div class="row">
-            <div class="col-md-5 col-sm-5 col-xs-12">
-              <div class="x_panel tile fixed_height_320 overflow_hidden">
-                <div class="x_title">
-                  <h2>Top Sessions Clients</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content" style="margin:10px 0;">
-                  <table class="" style="width:100%">
-                    <tr>
-                      <td  style="width:51%;">
-                        <canvas id="topclients" height="240" width="240" style="margin: 0px 0px 0px 0"></canvas>
-                      </td>
-                      <td>
-                        <table class="countries_list">
-						
-                        <?php
-                        $i = 1;
-                        foreach($content['chartdata']['legend'] as $cName => $client){
-                        ?>
-                          <tr>
-                            <td style="padding-left:0px;padding-right:0px;"><?= $i ?>.</td><td style="padding-left:0px;padding-right:0px;"><?= $cName ?></td><td style="padding-right:0px;"><?= $client['count'] ?></td><td style="padding-right:0px;padding-left:0px;"><small>(<?= $client['share'] ?>%)</small></td>
-                          </tr>
-                          <?php 
-                          $i++; 
-                        } 
-                        ?>                         
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-cube"></i> Block Height</span>
+        <div class="count"><?= number_format($content['node']->blockHeight) ?></div>
+        <span
+          class="count_bottom"><?= ($content['node']->synced) ? ' <span >synced</span>' : $content['node']->blocksBehind . " behind" ?></span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-server"></i> Peers</span>
+        <div class="count"><?= number_format($content['node']->peersC) ?></div>
+        <span class="count_bottom"><i class="fa fa-clock-o"></i><?= $content['node']->uptime ?> online</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /top tiles -->
+<!-- Message/Error -->
+<div class="clearfix"></div>
+<div class="row">
+  <div class="col-md-3 col-sm-3 col-xs-12">
+    <?php if (!empty($error)) { ?>
+      <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"
+          aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <?= $error ?> </div><?php }
+    if (!empty($message)) { ?>
+      <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert"
+          aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <?= $message ?> </div><?php } ?>
+  </div>
+</div>
+<!-- Content -->
+<div class="row">
+  <div class="col-md-5 col-sm-5 col-xs-12">
+    <div class="x_panel tile overflow_hidden">
+      <div class="x_title">
+        <h2>Top Sessions Clients</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content" style="margin:10px 0;">
+        <div class="container">
+          <div class="row">
+            <!-- Left column for the canvas -->
+            <div class="col-md-6">
+              <div class="canvas-container">
+                <canvas id="topclients" height="240" width="240" style="margin: 0px;"></canvas>
               </div>
             </div>
 
-            <?php if($content['geo']){?>  
-            <!-- Wolrd Map -->  
-            <div class="col-md-7 col-sm-7 col-xs-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Global Sessions Distribution</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li><li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    <?php if(isset($content['api'])) { ?><li><a><i class="fa fa-refresh" data-toggle="tooltip" data-html="true" data-placement="left" title="<?= $content["api"]["callc"] ?> call(s) to API with <?= $content["api"]["ipc"] ?> new ips."></i></a></li><?php }?>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <div class="dashboard-widget-content">
-                    <div class="col-md-4 hidden-small">
-                      <table class="countries_list">
-                        <tbody>   
-                        <?php $i = 1;
-                        foreach($content['map']['desc'] as $cName => $country){
-                        ?>
-                        <tr>
-                          <td style="padding-right:0px;padding-left:0px;"><?= $i ?>.</td><td style="padding-left:0px;padding-right:0px;"><img src="assets/images/flags/16/<?= $cName ?>.png" /></td><td style="padding-left:0px;padding-right:0px;"> <?= $cName ?></td><td style="padding-right:0px;padding-left:0px;"><?= $country['count'] ?></td><td style="padding-left:0px;padding-right:0px;"><small>(<?= $country['share'] ?>%)<small></td>                                     
-                        </tr>
-                        <?php 
-                        $i++; 
-                        } 
-                        ?>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div id="world-map-gdp" class="col-md-8 col-sm-12 col-xs-12" style="height:320px;"></div>
-                  </div>
-                </div>
+            <!-- Right column for the table -->
+            <div class="col-md-6">
+              <table class="countries_list table-modern table">
+                <?php
+                $i = 1;
+                foreach ($content['chartdata']['legend'] as $cName => $client) {
+                  ?>
+                  <tr>
+                    <td style="padding-left:0px;padding-right:0px;"><?= $i ?>.</td>
+                    <td style="padding-left:0px;padding-right:0px;"><?= $cName ?></td>
+                    <td style="padding-right:0px;"><?= $client['count'] ?></td>
+                    <td style="padding-right:0px;padding-left:0px;"><small>(<?= $client['share'] ?>%)</small></td>
+                  </tr>
+                  <?php
+                  $i++;
+                }
+                ?>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <?php if ($content['geo']) { ?>
+    <!-- Wolrd Map -->
+    <div class="col-md-7 col-sm-7 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Global Sessions Distribution</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+            <?php if (isset($content['api'])) { ?>
+              <li><a><i class="fa fa-refresh" data-toggle="tooltip" data-html="true" data-placement="left"
+                    title="<?= $content["api"]["callc"] ?> call(s) to API with <?= $content["api"]["ipc"] ?> new ips."></i></a>
+              </li><?php } ?>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div class="dashboard-widget-content">
+            <div class="row">
+              <!-- Left column for the table -->
+              <div class="col-md-4">
+                <table class="countries_list table-modern table">
+                  <tbody>
+                    <?php $i = 1;
+                    foreach ($content['map']['desc'] as $cName => $country) {
+                      ?>
+                      <tr>
+                        <td style="padding-right:0px;padding-left:0px;"><?= $i ?>.</td>
+                        <td style="padding-left:0px;padding-right:0px;">
+                          <img src="assets/images/flags/16/<?= $cName ?>.png" />
+                        </td>
+                        <td style="padding-left:0px;padding-right:0px;"> <?= $cName ?></td>
+                        <td style="padding-right:0px;padding-left:0px;"><?= $country['count'] ?></td>
+                        <td style="padding-left:0px;padding-right:0px;">
+                          <small>(<?= $country['share'] ?>%)</small>
+                        </td>
+                      </tr>
+                      <?php
+                      $i++;
+                    }
+                    ?>
+                  </tbody>
+                </table>
               </div>
+
+              <!-- Right column for the map -->
+              <div id="world-map-gdp" class="col-md-8 col-sm-12 col-xs-12" style="height:320px;"></div>
             </div>
-            <!-- Wolrd Map End -->
-            <?php } ?>
-           </div>
-           <!-- End first row -->
-            
-            
- 
-            </div>
-           </div>
-    
-        <!-- /page content -->
+          </div>
+        </div>
 
-    <!-- footer content -->
-    <?php include('views/footer.phtml') ?>
-    <!-- /footer content -->
-    
+      </div>
     </div>
-    </div>
+  </div>
+  <!-- Wolrd Map End -->
+<?php } ?>
+</div>
+<!-- End first row -->
 
-    <!-- jQuery -->
-    <script src="assets/js/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- Chart.js -->
-    <script src="assets/js/Chart.min.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="assets/js/custom.min.js"></script>
-	<?php
-	if($content['geo']){
-		echo "<script>".$content['map']['data']."</script>";
-	?>
-		<!-- JQVMap -->
-		<script src="assets/js/jquery.vmap.min.js"></script>
-		<script src="assets/js/jquery.vmap.world.js"></script>
-		<script>
-		  $(document).ready(function(){
-			$('#world-map-gdp').vectorMap({
-				map: 'world_en',
-				backgroundColor: null,
-				color: '#ffffff',
-				hoverOpacity: 0.7,
-				selectedColor: '#666666',
-				enableZoom: false,
-				showTooltip: true,
-				values: peerData,
-				onLabelShow: function (event, label, code) {
-					if (peerData[code]!==undefined)
-					{
-						label.append(' ('+peerData[code]+')'); 
-					} else {
-						label.append(' (No Peers)'); 
-				   }                
-				},
-				scaleColors: ['#deebf7', '#3182bd'],
-				normalizeFunction: 'polynomial'
-			});
-		  });
-		</script>
-		<!-- /JQVMap -->
-    <?php } ?>
-    <!-- Doughnut Chart -->
-    <script>
-      $(document).ready(function(){
-        var options = {
-          legend: false,
-          responsive: false
-        };
 
-        new Chart(document.getElementById("topclients"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [<?= $content['chartdata']['labels'] ?>],
-            datasets: [{
-              data: [<?= $content['chartdata']['values'] ?>],
-              backgroundColor: [
-                "#56E2CF",
-                "#56AEE2",
-                "#5668E2",
-                "#8A56E2",
-                "#CF56E2",
-                "#E256AE",
-                "#E25668",
-                "#E28956", 
-                "#E2CF56",                 
-                "#C0C0C0"
-              ],
-              hoverBackgroundColor: [
-                "#78F2DF",
-                "#78C7F2",
-                "#788BF2",
-                "#A378F2",
-                "#DF78F2",
-                "#F278C7",
-                "#F2788B",
-                "#F2A378",
-                "#F2DF78",             
-                "#D9D9D9"
-              ]
-            }]
-          },
-          options: options
-        });
+
+</div>
+</div>
+
+<!-- /page content -->
+
+<!-- footer content -->
+<?php include('views/footer.phtml') ?>
+<!-- /footer content -->
+
+</div>
+</div>
+
+<!-- jQuery -->
+<script src="assets/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- Chart.js -->
+<script src="assets/js/Chart.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="assets/js/custom.min.js"></script>
+<?php
+if ($content['geo']) {
+  echo "<script>" . $content['map']['data'] . "</script>";
+  ?>
+  <!-- JQVMap -->
+  <script src="assets/js/jquery.vmap.min.js"></script>
+  <script src="assets/js/jquery.vmap.world.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#world-map-gdp').vectorMap({
+        map: 'world_en',
+        backgroundColor: null,
+        color: '#ffffff',
+        hoverOpacity: 0.7,
+        selectedColor: '#269b4d',
+        enableZoom: true,
+        showTooltip: true,
+        values: peerData,
+        onLabelShow: function (event, label, code) {
+          if (peerData[code] !== undefined) {
+            label.append(' (' + peerData[code] + ')');
+          } else {
+            label.append(' (No Peers)');
+          }
+        },
+        scaleColors: ['#b0f5c7', '#54996b'],
+        normalizeFunction: 'polynomial'
       });
-    </script>
-    <!-- /Doughnut Chart -->
-       
-  </body>
+    });
+  </script>
+  <!-- /JQVMap -->
+<?php } ?>
+<!-- Doughnut Chart -->
+<script>
+  $(document).ready(function () {
+    var options = {
+      legend: false,
+      responsive: true
+    };
+
+    new Chart(document.getElementById("topclients"), {
+      type: 'doughnut',
+      tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+      data: {
+        labels: [<?= $content['chartdata']['labels'] ?>],
+        datasets: [{
+          data: [<?= $content['chartdata']['values'] ?>],
+          backgroundColor: [
+            "#56E2CF",
+            "#56AEE2",
+            "#5668E2",
+            "#8A56E2",
+            "#CF56E2",
+            "#E256AE",
+            "#E25668",
+            "#E28956",
+            "#E2CF56",
+            "#C0C0C0"
+          ],
+          hoverBackgroundColor: [
+            "#78F2DF",
+            "#78C7F2",
+            "#788BF2",
+            "#A378F2",
+            "#DF78F2",
+            "#F278C7",
+            "#F2788B",
+            "#F2A378",
+            "#F2DF78",
+            "#D9D9D9"
+          ]
+        }]
+      },
+      options: options
+    });
+  });
+</script>
+<!-- /Doughnut Chart -->
+
+</body>
+
 </html>

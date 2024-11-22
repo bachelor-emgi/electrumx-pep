@@ -19,7 +19,8 @@ input {
 
 /* Additional styling for active links in the bottom bar, if needed */
 .bottom_bar a.active {
-  color: #1ABB9C; /* Highlight color for active links */
+  color: #1ABB9C;
+  /* Highlight color for active links */
 }
 
 .daterangepicker .input-mini {
@@ -78,7 +79,7 @@ input {
   margin: 0 0 4px 0;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
+.table-striped>tbody>tr:nth-of-type(odd) {
   background-color: #666666;
 }
 
@@ -174,7 +175,7 @@ input {
 }
 
 .left_col {
-  background: #0b722e;
+  background: #4b4b4b;
 }
 
 .nav-sm .container.body .col-md-3.left_col {
@@ -424,7 +425,7 @@ body .container.body .right_col {
 .nav_title {
   width: 230px;
   float: left;
-  background: #0b722e;
+  background: #4b4b4b;
   border-radius: 0;
   height: 57px;
 }
@@ -598,7 +599,7 @@ body .container.body .right_col {
 
 body {
   color: #ffff;
-  background: #0b722e;
+  background: #4b4b4b;
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   font-size: 13px;
   font-weight: 400;
@@ -1139,12 +1140,12 @@ a:focus {
 }
 
 .panel {
-    margin-bottom: 20px;
-    background-color: #666666;
-    border: 1px solid transparent;
-    border-radius: 18px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  margin-bottom: 20px;
+  background-color: #666666;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
 .panel_toolbox {
@@ -1174,6 +1175,7 @@ a:focus {
 .main_menu_side {
   padding: 0;
   margin: 0;
+  margin-left: 10px;
 }
 
 .bs-docs-sidebar .nav>li>a {
@@ -4298,6 +4300,7 @@ form:after {
   height: 0;
   clear: both;
   visibility: hidden;
+  color: white;
 }
 
 .login_content {
@@ -5158,47 +5161,147 @@ ul.notifications {
 
 .bottom_bar {
   display: flex;
-  flex-direction: row; /* Change to row for horizontal alignment */
+  flex-direction: row;
+  /* Change to row for horizontal alignment */
   align-items: center;
   justify-content: space-around;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 100; /* Ensure it's above other content */
-  background-color: #333; /* Example background color for visibility */
-  justify-content: center; /* Center items horizontally */
-  padding: 10px 0; /* Add some padding */
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2); /* Optional: adds shadow for depth */
+  z-index: 100;
+  /* Ensure it's above other content */
+  background-color: #333;
+  /* Example background color for visibility */
+  justify-content: center;
+  /* Center items horizontally */
+  padding: 10px 0;
+  /* Add some padding */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  /* Optional: adds shadow for depth */
 }
 
 .bottom_bar a {
   display: flex;
-  flex-direction: column; /* Keep text below icons */
+  flex-direction: column;
+  /* Keep text below icons */
   align-items: center;
   text-decoration: none;
   margin-right: 10px;
   margin-left: 10px;
-  color: inherit; /* Adjust color as needed */
+  color: inherit;
+  /* Adjust color as needed */
 }
 
 .bottom_bar a i {
-  font-size: 20px; /* Adjust icon size */
-  margin-bottom: 5px; /* Space between icon and text */
+  font-size: 20px;
+  /* Adjust icon size */
+  margin-bottom: 5px;
+  /* Space between icon and text */
 }
 
 .bottom_bar a span {
-  font-size: 16px; /* Adjust text size */
+  font-size: 16px;
+  /* Adjust text size */
+}
+
+h2 small {
+  color: white;
+}
+
+/* Styling for the rounded corners on the first and last items */
+.menu-item {
+  margin-bottom: 0;
+  /* Remove margin between items */
+}
+
+.menu-item a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  background-color: #666666;
+  border-radius: 5px;
+}
+
+.menu-item.rounded-top a {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.menu-item.rounded-bottom a {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.menu-item a:hover {
+  background-color: #54996b !important;
+}
+
+.active {
+  background-color: #386b49 !important;
+  color: #fff;
+}
+
+.child_menu {
+  padding-left: 20px;
+}
+
+/* Optional: style for active links */
+.active a {
+  color: white !important;
+  background-color: #007bff;
 }
 
 @media (max-width: 991px) {
   .bottom_bar {
-    display: flex; 
+    display: flex;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     flex-direction: row;
+  }
+
+  /* Styling for the rounded corners on the first and last items */
+  .menu-item {
+    margin-bottom: 0;
+    /* Remove margin between items */
+  }
+
+  .menu-item a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  .menu-item.rounded-top a {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .menu-item.rounded-bottom a {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .menu-item a:hover {
+    background-color: transparent !important;
+  }
+
+  .active {
+    background-color: transparent !important;
+    color: #fff;
+  }
+
+  .child_menu {
+    padding-left: 20px;
+  }
+
+  /* Optional: style for active links */
+  .active a {
+    color: white !important;
+    background-color: transparent;
   }
 }
 
@@ -5207,4 +5310,72 @@ ul.notifications {
     display: none;
     flex-direction: row;
   }
+}
+
+/* Modern table with rounded corners and padding */
+.table-modern {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.table-modern tbody tr {
+  border-bottom: 2px solid #666666;
+}
+
+.table-modern tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table-modern tbody tr td,
+.table-modern thead th {
+  padding: 12px 20px;
+}
+
+.table-modern tbody tr td {
+  border-left: 1px solid #666666;
+  border-right: 1px solid #666666;
+}
+
+/* Border for table if needed */
+.table-modern {
+  border: 1px solid #666666;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+tr {
+  background-color: #4b4b4b !important;
+}
+
+.table-modern thead tr {
+  background-color: #4b4b4b !important;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+/* Optional: Change hover color */
+.table-modern tbody tr:hover {
+  background-color: #386b49 !important;
+}
+
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td {
+  border: 1px solid #666666;
+}
+
+td {
+  padding-left: 10px!important;
+  padding-right: 10px!important;
+}
+
+table {
+  margin-top: 10px;
+}
+
+element.style {
+  border-bottom: 1px solid white!important;
 }
