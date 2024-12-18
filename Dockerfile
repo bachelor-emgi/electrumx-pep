@@ -20,7 +20,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 RUN a2enmod rewrite
 
 # Download and extract Pepecoin
-RUN curl -o pepecoin.tar.gz -Lk https://github.com/pepecoinppc/pepecoin/releases/download/v1.0.1/pepecoin-1.0.1-aarch64-linux-gnu.tar.gz \
+RUN curl -o pepecoin.tar.gz -Lk https://github.com/pepecoinppc/pepecoin/releases/download/v1.1.0/pepecoin-1.1.0-aarch64-linux-gnu.tar.gz \
     && tar -xvf pepecoin.tar.gz \
     && rm pepecoin.tar.gz
 
