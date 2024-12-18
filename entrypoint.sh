@@ -20,8 +20,5 @@ chmod 600 "${SSL_KEYFILE}"
 # Start the Apache service
 service apache2 start
 
-# Start the Pepecoin daemon
-pepecoind -conf=/root/.pepecoin/pepecoin.conf -datadir=/data 
-
 # Start the ElectrumX server
 /root/electrum/electrumx_server

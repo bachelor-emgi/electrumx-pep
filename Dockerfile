@@ -19,14 +19,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Download and extract Pepecoin
-RUN curl -o pepecoin.tar.gz -Lk https://github.com/pepecoinppc/pepecoin/releases/download/v1.1.0/pepecoin-1.1.0-aarch64-linux-gnu.tar.gz \
-    && tar -xvf pepecoin.tar.gz \
-    && rm pepecoin.tar.gz
-
-# Install Pepecoin binaries
-RUN install -m 0755 -o root -g root -t /usr/local/bin pepecoin-1.1.0/bin/*
-
 # Install Python package uvloop
 RUN pip install uvloop
 
@@ -37,10 +29,6 @@ RUN cd /root/electrum && pip3 install .
 # Copy entrypoint script and set executable permissions
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-# Copy Pepecoin configuration file
-RUN mkdir -p /root/.pepecoin
-COPY pepecoin.conf /root/.pepecoin/pepecoin.conf
 
 # Copy dashboard directory into the working directory
 COPY dashboard /data/dashboard
@@ -61,7 +49,7 @@ RUN echo '<VirtualHost *:80>\n\
 ENV HOME /data
 ENV ALLOW_ROOT 1
 ENV COIN=Pepecoin
-ENV DAEMON_URL=http://pepe:epep@127.0.0.1:22555
+ENV DAEMON_URL=http://pepe:epep@10.0.1.1:22555
 ENV EVENT_LOOP_POLICY uvloop
 ENV DB_DIRECTORY /data
 ENV SERVICES=tcp://:50001,ssl://:50002,wss://:50004,rpc://0.0.0.0:8000
