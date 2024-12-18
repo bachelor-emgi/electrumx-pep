@@ -25,7 +25,7 @@ RUN curl -o pepecoin.tar.gz -Lk https://github.com/pepecoinppc/pepecoin/releases
     && rm pepecoin.tar.gz
 
 # Install Pepecoin binaries
-RUN install -m 0755 -o root -g root -t /usr/local/bin pepecoin-1.0.1/bin/*
+RUN install -m 0755 -o root -g root -t /usr/local/bin pepecoin-1.1.0/bin/*
 
 # Install Python package uvloop
 RUN pip install uvloop
