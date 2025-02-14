@@ -1,29 +1,39 @@
-```
+To run Pepecoin ElectrumX server you need to use this command (edit the variables to your needs):
+```bash
 docker run -d \
   -p 50001:50001/tcp \
   -p 50002:50002/tcp \
   -p 50004:50004/tcp \
   -p 8002:80/tcp \
-  -v pepelum_data:/data \
-  -v /home/pi/certs:/etc/ssl/private \
+  -v electrum_data:/data \
+  -v /home/user/certs:/etc/ssl/private \
+  -e COIN=Pepecoin \
+  -e DAEMON_URL=http://pepe:epep@10.0.1.1:22555 \
+  -e EVENT_LOOP_POLICY=uvloop \
+  -e DB_DIRECTORY=/data \
+  -e SERVICES=tcp://:50001,ssl://:50002,wss://:50004,rpc://0.0.0.0:8000 \
+  -e SSL_CERTFILE=/data/electrumx-pepecoin.crt \
+  -e SSL_KEYFILE=/data/electrumx-pepecoin.key \
+  -e HOST="" \
+  -e REPORT_SERVICES=tcp://electrum.domain.com:50001,ssl://electrum.domain.com:50002,wss://electrum.domain.com:50004 \
+  -e DONATION_ADDRESS=PeXUmAtzbJYfd3ZBJuRC4EzeYooXKWD9B5 \
   --cap-add=NET_ADMIN \
-  --device=/dev/net/tun \
-  --name electrum-pepelum \
+  --name pepecoin-electrum \
   --restart always \
-  emgi2/pepelum-electrum
+  emgi2/pepecoin-electrum
 ```
-Certbot
-```
+ElectrumX server will need valid ssl certificate, you can use this Certbot if you are using cloudflare:
+```bash
 docker run -d \
   --name certbot \
   --restart always \
   -e CLOUDFLARE_API_TOKEN=token \
   -e EMAIL=email \
-  -e DOMAIN=electrum.pepelum.site \
+  -e DOMAIN=electrum.domain.com \
   -v /etc/letsencrypt:/etc/letsencrypt \
   -v /var/lib/letsencrypt:/var/lib/letsencrypt \
   -v /var/log/letsencrypt:/var/log/letsencrypt \
-  -v /home/pi/certs:/certs \
+  -v /home/user/certs:/certs \
   emgi2/certbot
 ```
 
@@ -33,15 +43,15 @@ docker run -d \
 
 ## Usage
 
+```bash
+docker build -t electrumx-pepecoin .
 ```
-docker build -t electrumx-pepecoin:electrumx-pepecoin .
+Multiarch build with push on dockehub:
+```bash:
+docker buildx create --use
+docker buildx create --name mybuilder --use
+docker buildx build --platform linux/amd64,linux/arm64 -t emgi2/pepecoin-electrum:latest --push .
 ```
-
-```
-docker run -v C:\electrumx-pepecoin:/data -p 50002:50002 electrumx-pepecoin:electrumx-pepecoin
-```
-
-If there's an SSL certificate/key (`electrumx-pepecoin.crt`/`electrumx-pepecoin.key`) in the `/data` volume it'll be used. If not, one will be generated for you.
 
 You can view all ElectrumX environment variables here: https://github.com/spesmilo/electrumx/blob/master/docs/environment.rst
 
