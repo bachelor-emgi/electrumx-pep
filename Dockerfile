@@ -7,7 +7,6 @@ WORKDIR /root/
 RUN apt-get update && apt-get upgrade -y --no-install-recommends && apt-get install -y \
     libleveldb-dev \
     curl \
-    gpg \
     ca-certificates \
     tar \
     dirmngr \
@@ -42,10 +41,18 @@ RUN echo '<VirtualHost *:80>\n\
     </Directory>\n\
     </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
-RUN apt-get purge -y dos2unix g++ gpg \
+RUN apt-get purge -y dos2unix g++ \
     && apt-get autoremove -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Manually remove specific libxml2 files to eliminate security vulnerabilities
+RUN rm -rf /usr/share/doc/libxml2 \
+    /var/lib/dpkg/info/libxml2:amd64.md5sums \
+    /var/lib/dpkg/status \
+    /usr/share/doc/libtasn1-6 \
+    /var/lib/dpkg/info/libtasn1-6:amd64.md5sums \
+    /var/lib/dpkg/status
 
 # Final stage
 FROM python:3.12-slim
