@@ -21,4 +21,5 @@ chmod 600 "${SSL_KEYFILE}"
 service apache2 start
 
 # Start the ElectrumX server
+/root/electrum/electrumx_compact_history
 /root/electrum/electrumx_server

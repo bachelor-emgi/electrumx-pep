@@ -1,5 +1,5 @@
-__version__ = "1.16.0"
-version = f'ElectrumX {__version__}'
+__version__ = "1.16.1"
+version = f'Pepecoin ElectrumX {__version__}'
 version_short = __version__
 
 from electrumx.server.controller import Controller
