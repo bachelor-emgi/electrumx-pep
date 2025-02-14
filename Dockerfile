@@ -14,7 +14,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     apache2 \
     php \
     libapache2-mod-php \
-    php-curl
+    php-curl \
+    dos2unix
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
@@ -28,7 +29,7 @@ RUN cd /root/electrum && pip3 install .
 
 # Copy entrypoint script and set executable permissions
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Copy dashboard directory into the working directory
 COPY dashboard /data/dashboard

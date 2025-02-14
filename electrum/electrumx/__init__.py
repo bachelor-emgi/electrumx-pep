@@ -1,4 +1,4 @@
-__version__ = "1.16.1"
+__version__ = "1.16.0"
 version = f'Pepecoin ElectrumX {__version__}'
 version_short = __version__
 
