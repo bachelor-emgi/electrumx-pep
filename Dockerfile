@@ -1,10 +1,10 @@
-FROM python:3.12
+FROM python:3.12-slim AS builder
 
 # Set working directory
 WORKDIR /root/
 
-# Install necessary packages
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+# Install necessary packages and clean up
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && apt-get install -y \
     libleveldb-dev \
     curl \
     gpg \
@@ -15,17 +15,16 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     php \
     libapache2-mod-php \
     php-curl \
-    dos2unix
-
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
-
-# Install Python package uvloop
-RUN pip install uvloop
+    dos2unix \
+    g++ \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && a2enmod rewrite \
+    && pip install --no-cache-dir uvloop
 
 # Copy ElectrumX source code and install dependencies
 COPY electrum /root/electrum
-RUN cd /root/electrum && pip3 install .
+RUN cd /root/electrum && pip3 install --no-cache-dir .
 
 # Copy entrypoint script and set executable permissions
 COPY entrypoint.sh /entrypoint.sh
@@ -33,9 +32,6 @@ RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Copy dashboard directory into the working directory
 COPY dashboard /data/dashboard
-
-RUN apt-get install -y apache2 php php-cli libapache2-mod-php \
-    && a2enmod rewrite
 
 # Configure Apache to serve the dashboard directory
 RUN echo '<VirtualHost *:80>\n\
@@ -45,6 +41,14 @@ RUN echo '<VirtualHost *:80>\n\
     Require all granted\n\
     </Directory>\n\
     </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+RUN apt-get purge -y dos2unix g++ gpg \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Final stage
+FROM python:3.12-slim
 
 # Set environment variables
 ENV HOME /data
@@ -59,6 +63,9 @@ ENV SSL_KEYFILE ${DB_DIRECTORY}/electrumx-pepecoin.key
 ENV HOST ""
 ENV REPORT_SERVICES=tcp://electrum.pepelum.site:50001,ssl://electrum.pepelum.site:50002,wss://electrum.pepelum.site:50004
 ENV DONATION_ADDRESS=PeXUmAtzbJYfd3ZBJuRC4EzeYooXKWD9B5
+
+# Copy necessary files from builder stage
+COPY --from=builder / /
 
 # Set working directory for data
 WORKDIR /data
