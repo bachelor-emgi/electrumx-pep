@@ -1,4 +1,9 @@
-To run Pepecoin ElectrumX server you need to use this command (edit the variables to your needs):
+# You will need:
+1. Pepecoin core with pepecoin.conf from this repository - https://github.com/pepecoinppc/pepecoin/releases
+2. Docker - https://docs.docker.com/engine/install/
+3. Valid SSL certificate for your domain (You can use Certbot from this repository if you are using Cloudflare)
+
+### To run Pepecoin ElectrumX server you need to use this command (edit the variables to your needs):
 ```bash
 docker run -d \
   -p 50001:50001/tcp \
@@ -22,7 +27,7 @@ docker run -d \
   --restart always \
   emgi2/pepecoin-electrum
 ```
-ElectrumX server will need valid ssl certificate, you can use this Certbot if you are using cloudflare:
+### ElectrumX server will need valid ssl certificate, you can use this Certbot if you are using cloudflare:
 ```bash
 docker run -d \
   --name certbot \
@@ -37,34 +42,25 @@ docker run -d \
   emgi2/certbot
 ```
 
-# docker-electrumx-pepecoin
+# Web Gui
+Default password to access web gui is `pi2023`,  this can be changed in the `dashboard/src/Config.php` file.
 
-> Run an All-In-One Pepecoin Electrum server with docker
+# Ports
+50001 - TCP
+50002 - SSL
+50004 - WSS
+8002 - Web GUI
+22555 - Pepecoin daemon
 
-## Usage
-
+# Building the image
+### You can build the image with this command:
 ```bash
 docker build -t electrumx-pepecoin .
 ```
-Multiarch build with push on dockehub:
+### Multiarch build with push on dockehub:
 ```bash:
 docker buildx create --use
 docker buildx create --name mybuilder --use
 docker buildx build --platform linux/amd64,linux/arm64 -t emgi2/pepecoin-electrum:latest --push .
 ```
-
 You can view all ElectrumX environment variables here: https://github.com/spesmilo/electrumx/blob/master/docs/environment.rst
-
-### TCP Port
-
-By default only the SSL port is exposed. You can expose the unencrypted TCP port with `-p 50001:50001`, although this is strongly discouraged.
-
-### WebSocket Port
-
-You can expose the WebSocket port with `-p 50004:50004`.
-
-### RPC Port
-
-To access RPC from your host machine, you'll also need to expose port 8000. You probably only want this available to localhost: `-p 127.0.0.1:8000:8000`.
-
-If you're only accessing RPC from within the container, there's no need to expose the RPC port.
