@@ -46,11 +46,11 @@ docker run -d \
 Default password to access web gui is `pi2023`,  this can be changed in the `dashboard/src/Config.php` file.
 
 # Ports
-50001 - TCP
-50002 - SSL
-50004 - WSS
-8002 - Web GUI
-22555 - Pepecoin daemon
+- 50001 - TCP
+- 50002 - SSL
+- 50004 - WSS
+- 8002 - Web GUI
+- 22555 - Pepecoin daemon
 
 # Building the image
 ### You can build the image with this command:
