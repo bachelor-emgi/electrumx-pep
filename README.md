@@ -26,7 +26,6 @@ docker run -d \
   -p 50002:50002/tcp \
   -p 50004:50004/tcp \
   -p 8002:80/tcp \
-  -v electrum_data:/data \
   -v /home/user/certs:/etc/ssl/private \
   -e COIN=Pepecoin \
   -e DAEMON_URL=http://pepe:epep@10.0.1.1:22555 \
