@@ -1,12 +1,18 @@
 # What is Pepecoin ElectrumX?
-Pepecoin ElectrumX is a lightweight server that provides fast and efficient access to the Ᵽepecoin blockchain. It allows wallets to interact with the network without downloading and verifying the full blockchain.
+Pepecoin ElectrumX is a high-performance server implementation of the Electrum protocol, originally developed by **[Spesmilo](https://github.com/spesmilo)** for Bitcoin and adapted for Ᵽepecoin by **[Pepe Enthusiast - Master Kush](https://github.com/PepeEnthusiast)** and later modified by **[Mr Bachelor emgi](https://github.com/bachelor-emgi)**. It allows lightweight wallets to interact with the Ᵽepecoin blockchain without downloading the full blockchain.
 
-### What is it Used For?
-- Mobile & Web Wallets – Enables lightweight wallets to send and receive transactions without running a full node.
-- Fast Transaction Lookups – Provides quick access to address balances, transaction history, and unspent outputs.
-- SPV Support – Uses Simplified Payment Verification (SPV) to verify transactions efficiently.
+# What is this used for?
+- Mobile Wallets – Provides fast and efficient blockchain access for lightweight Ᵽepecoin mobile wallets.
+- Web Wallets – Enables web-based Ᵽepecoin wallets to send, receive, and verify transactions without running a full node.
+- Fast Blockchain Queries – Supports instant balance checks, transaction history lookups, and UTXO retrieval.
+- Full Node Indexing – Connects to a Ᵽepecoin full node, indexing the blockchain for wallet queries.
 
-By using an ElectrumX server, wallets can remain lightweight while still accessing full blockchain data securely and quickly.
+# How it works
+- ElectrumX connects to a full Ᵽepecoin node (Pepecoin Core).
+- It indexes blockchain data, allowing lightweight wallets to request address balances and transaction history.
+- Wallets connect to ElectrumX, retrieving data without downloading the full blockchain.
+
+ElectrumX is essential for keeping Ᵽepecoin wallets lightweight, secure and fast while maintaining decentralized access to the blockchain.
 
 # You will need:
 1. Pepecoin core with pepecoin.conf from this repository - https://github.com/pepecoinppc/pepecoin/releases
