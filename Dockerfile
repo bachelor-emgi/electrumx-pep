@@ -1,4 +1,4 @@
-FROM python:3.12-slim AS builder
+FROM python:3.13-slim AS builder
 
 # Set working directory
 WORKDIR /root/
@@ -46,16 +46,20 @@ RUN apt-get purge -y dos2unix g++ \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Manually remove specific libxml2 files to eliminate security vulnerabilities
+# Manually remove some file to fix multiple vulnerabilities
 RUN rm -rf /usr/share/doc/libxml2 \
     /var/lib/dpkg/info/libxml2:amd64.md5sums \
     /var/lib/dpkg/status \
     /usr/share/doc/libtasn1-6 \
     /var/lib/dpkg/info/libtasn1-6:amd64.md5sums \
-    /var/lib/dpkg/status
+    /usr/share/doc/libgnutls30 \
+    /var/lib/dpkg/info/libgnutls30:amd64.md5sums \
+    /var/lib/dpkg/status \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Final stage
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 # Set environment variables
 ENV HOME /data
