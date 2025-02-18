@@ -27,7 +27,7 @@ RUN cd /root/electrum && pip3 install --no-cache-dir .
 
 # Copy entrypoint script and set executable permissions
 COPY entrypoint.sh /entrypoint.sh
-RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh && find /root -type f -exec dos2unix {} \; && find /root -type f -exec sed -i 's/\r//' {} \;
+RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh && find /root -type f -exec dos2unix {} \; && find /root -type f -exec sed -i 's/\r//' {} \; && mkdir -p /data/db
 
 # Copy dashboard directory into the working directory
 COPY dashboard /data/dashboard
@@ -67,7 +67,7 @@ ENV ALLOW_ROOT 1
 ENV COIN=Pepecoin
 ENV DAEMON_URL=http://pepe:epep@10.0.1.1:22555
 ENV EVENT_LOOP_POLICY uvloop
-ENV DB_DIRECTORY /data
+ENV DB_DIRECTORY /data/db
 ENV SERVICES=tcp://:50001,ssl://:50002,wss://:50004,rpc://0.0.0.0:8000
 ENV SSL_CERTFILE ${DB_DIRECTORY}/electrumx-pepecoin.crt
 ENV SSL_KEYFILE ${DB_DIRECTORY}/electrumx-pepecoin.key
