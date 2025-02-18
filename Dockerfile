@@ -27,7 +27,7 @@ RUN cd /root/electrum && pip3 install --no-cache-dir .
 
 # Copy entrypoint script and set executable permissions
 COPY entrypoint.sh /entrypoint.sh
-RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
+RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh && find /root -type f -exec dos2unix {} \; && find /root -type f -exec sed -i 's/\r//' {} \;
 
 # Copy dashboard directory into the working directory
 COPY dashboard /data/dashboard
