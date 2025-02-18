@@ -1,3 +1,13 @@
+# What is Pepecoin ElectrumX?
+Pepecoin ElectrumX is a lightweight server that provides fast and efficient access to the Ᵽepecoin blockchain. It allows wallets to interact with the network without downloading and verifying the full blockchain.
+
+### What is it Used For?
+- Mobile & Web Wallets – Enables lightweight wallets to send and receive transactions without running a full node.
+- Fast Transaction Lookups – Provides quick access to address balances, transaction history, and unspent outputs.
+- SPV Support – Uses Simplified Payment Verification (SPV) to verify transactions efficiently.
+
+By using an ElectrumX server, wallets can remain lightweight while still accessing full blockchain data securely and quickly.
+
 # You will need:
 1. Pepecoin core with pepecoin.conf from this repository - https://github.com/pepecoinppc/pepecoin/releases
 2. Docker - https://docs.docker.com/engine/install/
