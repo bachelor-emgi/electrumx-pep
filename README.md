@@ -14,6 +14,16 @@ Pepecoin ElectrumX is a high-performance server implementation of the Electrum p
 
 ElectrumX is essential for keeping Ᵽepecoin wallets lightweight, secure and fast while maintaining decentralized access to the blockchain.
 
+# Supported Hardware
+
+| Architecture   | Description           |
+|---------------|-----------------------|
+| x86_64 / amd64 | 64-bit Intel/AMD CPUs |
+| arm64 / aarch64 | 64-bit ARM CPUs       |
+| arm (32-bit)  | 32-bit ARM CPUs       |
+| ppc64le       | PowerPC 64-bit (Little Endian) |
+| s390x         | IBM Z Systems         |
+
 # You will need:
 1. Pepecoin core with pepecoin.conf from this repository - https://github.com/pepecoinppc/pepecoin/releases
 2. Docker - https://docs.docker.com/engine/install/
@@ -78,6 +88,6 @@ docker build -t electrumx-pepecoin .
 ```bash:
 docker buildx create --use
 docker buildx create --name mybuilder --use
-docker buildx build --platform linux/amd64,linux/arm64 -t emgi2/pepecoin-electrum:latest --push .
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x -t emgi2/pepecoin-electrum:latest --push .
 ```
 You can view all ElectrumX environment variables here: https://github.com/spesmilo/electrumx/blob/master/docs/environment.rst

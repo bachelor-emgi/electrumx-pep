@@ -1270,6 +1270,7 @@ class Pepecoin(AuxPowMixin, Coin):
     PEERS = [
         'electrum.pepeblocks.com t50001 s50002',
         'electrum.pepelum.site t50001 s50002',
+        'electrum.pepe.tips t50001 s50002',
     ]
     TX_COUNT = 121100
     TX_COUNT_HEIGHT = 86777
