@@ -46,21 +46,9 @@ RUN apt-get purge -y dos2unix g++ build-essential \
     && apt-get autoremove -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    /usr/share/doc \
-    /usr/share/man \
-    /usr/share/locale \
-    /usr/share/info \
-    /var/cache/apt \
-    /var/lib/apt/lists \
-    /var/log \
-    /var/lib/dpkg/info/*.md5sums \
-    /var/lib/dpkg/info/*.list \
-    /var/lib/dpkg/info/*.shlibs \
-    /var/lib/dpkg/info/*.symbols \
-    /var/lib/dpkg/info/*.triggers \
-    /var/lib/dpkg/info/*.conffiles \
     /tmp/* \
-    /var/tmp/*
+    /var/tmp/* \
+    && chmod 777 -R /data/dashboard
 
 # Final stage
 FROM python:3.13-slim
