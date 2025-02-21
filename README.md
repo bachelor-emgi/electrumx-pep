@@ -53,7 +53,7 @@ docker run -d \
   -e SSL_KEYFILE=/data/electrumx-pepecoin.key \
   -e HOST="" \
   -e REPORT_SERVICES=tcp://electrum.domain.com:50001,ssl://electrum.domain.com:50002,wss://electrum.domain.com:50004 \
-  -e DONATION_ADDRESS=PeXUmAtzbJYfd3ZBJuRC4EzeYooXKWD9B5 \
+  -e DONATION_ADDRESS=PZ6chc2WsAvLb6tmTczZfZutZQeSCnKeJR \
   -e MAX_SESSIONS=1000 \
   --cap-add=NET_ADMIN \
   --name pepecoin-electrum \
