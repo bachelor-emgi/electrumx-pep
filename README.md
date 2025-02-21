@@ -24,6 +24,12 @@ ElectrumX is essential for keeping Ᵽepecoin wallets lightweight, secure and fa
 | ppc64le       | PowerPC 64-bit (Little Endian) |
 | s390x         | IBM Z Systems         |
 
+# Versions
+Pepecoin ElectrumX has slightly different versioning:
+| 1.16           | 0 |
+|---------------|-----------------------|
+| Original version by **[Spesmilo](https://github.com/spesmilo)** | Our Pepecoin changes, releases. These changes dont affect any methods or functionality. These changes are for improvements of our servers and helping us keep track who of all ElectrumX operators updated and are using latest version of server. |
+
 # You will need:
 1. Pepecoin core with pepecoin.conf from this repository - https://github.com/pepecoinppc/pepecoin/releases
 2. Docker - https://docs.docker.com/engine/install/
