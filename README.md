@@ -58,7 +58,7 @@ docker run -d \
   --cap-add=NET_ADMIN \
   --name pepecoin-electrum \
   --restart always \
-  emgi2/pepecoin-electrum
+  emgi2/pepecoin-electrum:latest
 ```
 ### ElectrumX server will need valid ssl certificate, you can use this Certbot if you are using cloudflare:
 ```bash
