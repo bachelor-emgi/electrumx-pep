@@ -53,12 +53,11 @@ from electrumx.server.session import (ElectrumX, DashElectrumX,
                                       NameIndexElectrumX, NameIndexAuxPoWElectrumX)
 
 
-@dataclass
+@dataclass(slots=True)
 class Block:
-    __slots__ = "raw", "header", "transactions"
     raw: bytes
     header: bytes
-    transactions: Sequence[Tuple[Tx, bytes]]
+    transactions: Sequence[Tx]
 
 
 class CoinError(Exception):
@@ -76,7 +75,6 @@ class Coin:
     BASIC_HEADER_SIZE = 80
     STATIC_BLOCK_HEADERS = True
     SESSIONCLS = ElectrumX
-    DEFAULT_MAX_SEND = 1000000
     DESERIALIZER = lib_tx.Deserializer
     DAEMON = daemon.Daemon
     BLOCK_PROCESSOR = block_proc.BlockProcessor
@@ -93,6 +91,14 @@ class Coin:
     GENESIS_HASH = ('000000000019d6689c085ae165831e93'
                     '4ff763ae46a2a6c172b3f1b60a8ce26f')
     GENESIS_ACTIVATION = 100_000_000
+    
+    # max byte-size of single jsonrpc message
+    # note: we should probably be able to serve a client asking for the largest consensus-valid tx.
+    #       For Bitcoin, that is 4 M weight units, i.e. 4 MB on the p2p wire.
+    #       Double that due to our JSON-RPC hex-encoding, plus overhead, we need to send 8+ MB.
+    #       When receiving from a client, e.g. to broadcast, such a tx would be non-standard anyway.
+    DEFAULT_MAX_SEND = 8_100_000
+    DEFAULT_MAX_RECV = 1_000_000
 
     MEMPOOL_HISTOGRAM_REFRESH_SECS = 500
     # first bin size in vbytes. smaller bins mean more precision but also bandwidth:
@@ -3244,33 +3250,6 @@ class Bitsend(Coin):
         return header + b'\0'
 
 
-class Ritocoin(Coin):
-    NAME = "Ritocoin"
-    SHORTNAME = "RITO"
-    NET = "mainnet"
-    XPUB_VERBYTES = bytes.fromhex("0534E7CA")
-    XPRV_VERBYTES = bytes.fromhex("05347EAC")
-    P2PKH_VERBYTE = bytes.fromhex("19")
-    P2SH_VERBYTES = (bytes.fromhex("69"),)
-    GENESIS_HASH = ('00000075e344bdf1c0e433f453764b18'
-                    '30a7aa19b2a5213e707502a22b779c1b')
-    DESERIALIZER = lib_tx.DeserializerSegWit
-    TX_COUNT = 1188090
-    TX_COUNT_HEIGHT = 296030
-    TX_PER_BLOCK = 3
-    RPC_PORT = 8766
-    REORG_LIMIT = 55
-    PEERS = [
-        'electrum-rito.minermore.com s t'
-    ]
-
-    @classmethod
-    def header_hash(cls, header):
-        '''Given a header return the hash.'''
-        import x21s_hash
-        return x21s_hash.getPoWHash(header)
-
-
 class Ravencoin(Coin):
     NAME = "Ravencoin"
     SHORTNAME = "RVN"
@@ -3458,60 +3437,6 @@ class ECCoin(Coin):
         # Requires OpenSSL 1.1.0+
         from hashlib import scrypt
         return scrypt(header, salt=header, n=1024, r=1, p=1, dklen=32)
-
-
-class Bellcoin(Coin):
-    NAME = "Bellcoin"
-    SHORTNAME = "BELL"
-    NET = "mainnet"
-    XPUB_VERBYTES = bytes.fromhex("0488b21e")
-    XPRV_VERBYTES = bytes.fromhex("0488ade4")
-    P2PKH_VERBYTE = bytes.fromhex("19")
-    P2SH_VERBYTES = (bytes.fromhex("55"),)
-    WIF_BYTE = bytes.fromhex("80")
-    GENESIS_HASH = ('000008f3b6bd10c2d03b06674a006b8d'
-                    '9731f6cb58179ef1eee008cee2209603')
-    DESERIALIZER = lib_tx.DeserializerSegWit
-    TX_COUNT = 264129
-    TX_COUNT_HEIGHT = 219574
-    TX_PER_BLOCK = 5
-    RPC_PORT = 25252
-    REORG_LIMIT = 1000
-    PEERS = [
-        'bell.electrumx.japanesecoin-pool.work s t',
-        'bell.streetcrypto7.com s t',
-    ]
-
-    @classmethod
-    def header_hash(cls, header):
-        '''Given a header return the hash.'''
-        import bell_yespower
-        return bell_yespower.getPoWHash(header)
-
-
-class CPUchain(Coin):
-    NAME = "CPUchain"
-    SHORTNAME = "CPU"
-    NET = "mainnet"
-    P2PKH_VERBYTE = bytes.fromhex("1C")
-    P2SH_VERBYTES = (bytes.fromhex("1E"),)
-    GENESIS_HASH = ('000024d8766043ea0e1c9ad42e7ea4b5'
-                    'fdb459887bd80b8f9756f3d87e128f12')
-    DESERIALIZER = lib_tx.DeserializerSegWit
-    TX_COUNT = 4471
-    TX_COUNT_HEIGHT = 3491
-    TX_PER_BLOCK = 2
-    RPC_PORT = 19707
-    REORG_LIMIT = 1000
-    PEERS = [
-        'electrumx.cpuchain.org s t',
-    ]
-
-    @classmethod
-    def header_hash(cls, header):
-        '''Given a header return the hash.'''
-        import cpupower
-        return cpupower.getPoWHash(header)
 
 
 class Xaya(NameIndexAuxPoWMixin, Coin):
@@ -4149,30 +4074,6 @@ class Lbry(Coin):
     TX_PER_BLOCK = 43
     RPC_PORT = 9245
     REORG_LIMIT = 5000
-
-
-class Bitweb(Coin):
-    NAME = "Bitweb"
-    SHORTNAME = "BTE"
-    NET = "mainnet"
-    XPUB_VERBYTES = bytes.fromhex("0488b21e")
-    XPRV_VERBYTES = bytes.fromhex("0488ade4")
-    P2PKH_VERBYTE = bytes.fromhex("21")
-    P2SH_VERBYTES = (bytes.fromhex("1E"),)
-    WIF_BYTE = bytes.fromhex("80")
-    GENESIS_HASH = ('00043e9c6bc54d9bd266c3767a83a7b9'
-                    'da435dd7f84e485a2bf2a869be62f1f3')
-    DESERIALIZER = lib_tx.DeserializerSegWit
-    TX_COUNT = 31788
-    TX_COUNT_HEIGHT = 29511
-    TX_PER_BLOCK = 2
-    RPC_PORT = 1605
-
-    @classmethod
-    def header_hash(cls, header):
-        '''Given a header return the hash.'''
-        import bitweb_yespower
-        return bitweb_yespower.getPoWHash(header)
 
 
 class Garlicoin(Coin):
