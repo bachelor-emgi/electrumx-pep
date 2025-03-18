@@ -1,4 +1,4 @@
-FROM python:3.13-slim AS builder
+FROM python:3.10-slim AS builder
 
 # Set working directory
 WORKDIR /root/
@@ -51,7 +51,7 @@ RUN apt-get purge -y dos2unix g++ build-essential \
     && chmod 777 -R /data/dashboard
 
 # Final stage
-FROM python:3.13-slim
+FROM python:3.10-slim
 
 # Set environment variables
 ENV HOME=/data
