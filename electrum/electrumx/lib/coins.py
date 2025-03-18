@@ -55,7 +55,6 @@ from electrumx.server.session import (ElectrumX, DashElectrumX,
 
 @dataclass(slots=True)
 class Block:
-    __slots__ = "raw", "header", "transactions"
     raw: bytes
     header: bytes
     transactions: Sequence[Tx]
