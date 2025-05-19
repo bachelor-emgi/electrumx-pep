@@ -243,7 +243,7 @@ async def test_broadcast_package(daemon):
     result = {"package_msg": "success"}
     daemon.session = ClientSessionGood(('submitpackage', [package], result))
     assert await daemon.broadcast_package(package) == result
-    
+
 @pytest.mark.asyncio
 async def test_relayfee(daemon):
     if isinstance(daemon, FakeEstimateFeeDaemon):

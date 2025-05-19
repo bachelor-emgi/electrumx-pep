@@ -331,7 +331,7 @@ raise them.
   limit of around 80,000 entries, which should be ample for most
   legitimate users.  If you use a higher default, bear in mind one
   client can request history for multiple addresses.
-  the largest raw transaction you will be able to serve to a client is
+
   Also note that the largest raw transaction you will be able to serve to a client is
   just under half of :envvar:`MAX_SEND`, as each raw byte becomes 2 hexadecimal
   ASCII characters on the wire.  For Bitcoin, the consensus limit for tx size is
