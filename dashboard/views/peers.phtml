@@ -87,6 +87,7 @@
                 <th>Client</th>
                 <th>Services</th>
                 <th>Information</th>
+                <th>SSL Cert</th>
               </tr>
             </thead>
             <tbody>
@@ -98,7 +99,8 @@
                   <?php if ($content['geo']) { ?>
                     <td><?php if (!empty($peer->country)) { ?><img src="assets/images/flags/16/<?= $peer->country ?>.png" />
                         <?php echo $peer->country;
-                    } ?></td>
+                    } ?>
+                    </td>
                   <?php } ?>
                   <?php if ($content['geo']) { ?>
                     <td><?= $peer->isp ?></td>
@@ -132,6 +134,17 @@
                               class="fa fa-search-minus fa-lg" style="color:lightblue"></i> AbuseIP DB</a></li>
                       </ul>
                     </div>
+                  </td>
+                  <td>
+                    <?php if ($peer->ssl): ?>
+                      <?php if ($peer->ssl_valid): ?>
+                        <span class="label label-success">Valid</span>
+                      <?php else: ?>
+                        <span class="label label-danger">Invalid</span>
+                      <?php endif; ?>
+                    <?php else: ?>
+                      <span class="label label-default">No SSL</span>
+                    <?php endif; ?>
                   </td>
                 </tr>
               <?php } ?>
