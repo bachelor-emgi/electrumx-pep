@@ -1,5 +1,0 @@
-# note: files listed in this file:
-#       - will be added to the sdist
-#       - but won't be added to the wheel (unless by other means)
-
-graft tests/
