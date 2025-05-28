@@ -86,6 +86,10 @@ Default password to access web gui is `pi2023`,  this can be changed in the `das
 - 22555 - Pepecoin daemon
 
 # Building the image
+### After cloning the codebase, be sure to run this command to update the sub-modules:
+```bash
+git submodule update --init --recursive
+```
 ### You can build the image with this command:
 ```bash
 docker build -t electrumx-pepecoin .
