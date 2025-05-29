@@ -60,6 +60,10 @@ docker run -d \
   --restart always \
   emgi2/pepecoin-electrum:latest
 ```
+[![emgi2/pepecoin-electrum][docker-pulls-image]][docker-hub-url]
+[![emgi2/pepecoin-electrum][docker-stars-image]][docker-hub-url]
+[![emgi2/pepecoin-electrum][docker-size-image]][docker-hub-url]
+
 ### ElectrumX server will need valid ssl certificate, you can use this Certbot if you are using cloudflare:
 ```bash
 docker run -d \
@@ -74,6 +78,9 @@ docker run -d \
   -v /home/user/certs:/certs \
   emgi2/certbot
 ```
+[![emgi2/certbot][docker-pulls-image-certbot]][docker-hub-url-certbot]
+[![emgi2/certbot][docker-stars-image-certbot]][docker-hub-url-certbot]
+[![emgi2/certbot][docker-size-image-certbot]][docker-hub-url-certbot]
 
 # Web Gui
 Default password to access web gui is `pi2023`,  this can be changed in the `dashboard/src/Config.php` file.
@@ -101,3 +108,13 @@ docker buildx create --name mybuilder --use
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x -t emgi2/pepecoin-electrum:latest --push .
 ```
 You can view all ElectrumX environment variables here: https://github.com/spesmilo/electrumx/blob/master/docs/environment.rst
+
+[docker-hub-url]: https://hub.docker.com/r/emgi2/pepecoin-electrum
+[docker-pulls-image]: https://img.shields.io/docker/pulls/emgi2/pepecoin-electrum.svg?style=flat-square
+[docker-size-image]: https://img.shields.io/docker/image-size/emgi2/pepecoin-electrum?style=flat-square
+[docker-stars-image]: https://img.shields.io/docker/stars/emgi2/pepecoin-electrum.svg?style=flat-square
+
+[docker-hub-url-certbot]: https://hub.docker.com/r/emgi2/certbot
+[docker-pulls-image-certbot]: https://img.shields.io/docker/pulls/emgi2/certbot.svg?style=flat-square
+[docker-size-image-certbot]: https://img.shields.io/docker/image-size/emgi2/certbot?style=flat-square
+[docker-stars-image-certbot]: https://img.shields.io/docker/stars/emgi2/certbot.svg?style=flat-square
