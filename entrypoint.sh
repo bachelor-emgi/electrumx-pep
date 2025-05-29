@@ -1,25 +1,31 @@
 #!/bin/bash
 
-# Define paths for the PEM files using the mounted directory
-SSL_CERTFILE="/etc/ssl/private/electrum.pepelum.site.crt"
-SSL_KEYFILE="/etc/ssl/private/electrum.pepelum.site.key"
+# Exit immediately on any error
+set -e
 
-# Create the directory if it doesn't exist (this is typically redundant with the volume mount)
-mkdir -p /etc/ssl/private
-
-# Check if the certificate and key files exist and if not, provide an error message
-if [ ! -e "${SSL_CERTFILE}" ] || [ ! -e "${SSL_KEYFILE}" ]; then
-  echo "Error: SSL certificate or key files do not exist."
+# Make sure required environment variables are set
+if [ -z "$SSL_CERTFILE" ] || [ -z "$SSL_KEYFILE" ]; then
+  echo "Error: SSL_CERTFILE and/or SSL_KEYFILE environment variables are not set."
   exit 1
 fi
 
-# Set appropriate permissions for the certificate and key files (typically managed by host)
-chmod 600 "${SSL_CERTFILE}"
-chmod 600 "${SSL_KEYFILE}"
+# Create the directory if it doesn't exist (optional/safe)
+mkdir -p "$(dirname "$SSL_CERTFILE")"
 
-# Start the Apache service
+# Check if cert and key files exist
+if [ ! -f "$SSL_CERTFILE" ] || [ ! -f "$SSL_KEYFILE" ]; then
+  echo "Error: SSL certificate or key files do not exist."
+  echo "CERT: $SSL_CERTFILE"
+  echo "KEY:  $SSL_KEYFILE"
+  exit 1
+fi
+
+# Set strict permissions
+chmod 600 "$SSL_CERTFILE" "$SSL_KEYFILE"
+
+# Start Apache
 service apache2 start
 
-# Start the ElectrumX server
+# Start ElectrumX
 /root/electrum/electrumx_compact_history
 /root/electrum/electrumx_server

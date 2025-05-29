@@ -47,10 +47,10 @@ docker run -d \
   -e COIN=Pepecoin \
   -e DAEMON_URL=http://pepe:epep@10.0.1.1:22555 \
   -e EVENT_LOOP_POLICY=uvloop \
-  -e DB_DIRECTORY=/data/db \
+  -e SSL_DIRECTORY=/etc/ssl/private \
   -e SERVICES=tcp://:50001,ssl://:50002,wss://:50004,rpc://0.0.0.0:8000 \
-  -e SSL_CERTFILE=/data/electrumx-pepecoin.crt \
-  -e SSL_KEYFILE=/data/electrumx-pepecoin.key \
+  -e SSL_CERTFILE=/etc/ssl/private/electrum.domain.com.crt \
+  -e SSL_KEYFILE=/etc/ssl/private/electrum.domain.com.key \
   -e HOST="" \
   -e REPORT_SERVICES=tcp://electrum.domain.com:50001,ssl://electrum.domain.com:50002,wss://electrum.domain.com:50004 \
   -e DONATION_ADDRESS=PZ6chc2WsAvLb6tmTczZfZutZQeSCnKeJR \
