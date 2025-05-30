@@ -1,4 +1,4 @@
-FROM python:3.13-slim AS builder
+FROM python:slim AS builder
 
 # Set working directory
 WORKDIR /root/
@@ -51,7 +51,7 @@ RUN apt-get purge -y dos2unix g++ build-essential \
     && chmod 777 -R /data/dashboard
 
 # Final stage
-FROM python:3.13-slim
+FROM python:slim
 
 # Set environment variables
 ENV HOME=/data
@@ -67,14 +67,15 @@ ENV HOST=""
 ENV REPORT_SERVICES=tcp://electrum.pepelum.site:50001,ssl://electrum.pepelum.site:50002,wss://electrum.pepelum.site:50004
 ENV DONATION_ADDRESS=PZ6chc2WsAvLb6tmTczZfZutZQeSCnKeJR
 
-# Copy necessary files from builder stage
-COPY --from=builder / /
+RUN apt-get update && apt-get install -y apache2 php libapache2-mod-php php-curl ca-certificates curl tar dirmngr libleveldb-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set working directory for data
+COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
+COPY --from=builder /usr/local/bin/electrumx* /usr/local/bin/
+COPY --from=builder /entrypoint.sh /entrypoint.sh
+COPY --from=builder /data/dashboard /data/dashboard
+COPY --from=builder /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
+
 WORKDIR /data
-
-# Expose necessary ports
 EXPOSE 80 50001 50002 50004 8000
-
-# Set the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
