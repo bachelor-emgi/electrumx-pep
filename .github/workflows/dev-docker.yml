@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Docker image tag (e.g., latest, dev, v1.2.3)'
+        description: 'Development Build (should stay default - dev)'
         required: true
         default: 'dev'
 
