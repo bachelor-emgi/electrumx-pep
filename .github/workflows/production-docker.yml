@@ -6,7 +6,7 @@ on:
       tag:
         description: 'Docker image tag (e.g., latest, dev, v1.2.3)'
         required: true
-        default: 'latest'
+        default: '1.18.0'
 
 jobs:
   build:
