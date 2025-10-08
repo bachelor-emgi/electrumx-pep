@@ -1,4 +1,4 @@
-FROM python:3.13-slim AS builder
+FROM python:slim AS builder
 
 # Set working directory
 WORKDIR /root/
@@ -70,7 +70,7 @@ ENV DONATION_ADDRESS=PZ6chc2WsAvLb6tmTczZfZutZQeSCnKeJR
 RUN apt-get update && apt-get install -y apache2 php libapache2-mod-php php-curl ca-certificates curl tar dirmngr libleveldb-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
+COPY --from=builder /usr/local/lib/python3.14/site-packages/ /usr/local/lib/python3.14/site-packages/
 COPY --from=builder /usr/local/bin/electrumx* /usr/local/bin/
 COPY --from=builder /entrypoint.sh /entrypoint.sh
 COPY --from=builder /data/dashboard /data/dashboard
