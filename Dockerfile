@@ -51,7 +51,7 @@ RUN apt-get purge -y dos2unix g++ build-essential \
     && chmod 777 -R /data/dashboard
 
 # Final stage
-FROM python:slim
+FROM python:3.13-slim
 
 # Set environment variables
 ENV HOME=/data
